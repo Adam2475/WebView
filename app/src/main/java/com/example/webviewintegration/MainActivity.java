@@ -1,5 +1,6 @@
 package com.example.webviewintegration;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     WebSettings webSettings;
 
     // Function triggered on app creation
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +34,11 @@ public class MainActivity extends AppCompatActivity {
         webView = findViewById(R.id.webView);
         webSettings = webView.getSettings();
         // For zooming control integration
-        webSettings.setBuiltInZoomControls(true);
+        //webSettings.setBuiltInZoomControls(true);
+
 
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
         // Web View client handles the logic that permits to
         // navigate through the various pages of the web app
         webView.setWebViewClient(new Callback());
@@ -45,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         // Loading local index file
         webView.loadUrl("file:///android_asset/index.html");
     }
-
 
     private class Callback extends WebViewClient {
         @Override
